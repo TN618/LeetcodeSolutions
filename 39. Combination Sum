@@ -1,0 +1,24 @@
+set<vector<int>> st;
+void gen(vector<int>& candidates, int target, vector<int> temp, vector<vector<int>>& ans){
+    if(target < 0){return;}
+    if(target == 0){
+        sort(temp.begin(),temp.end());
+        if(st.find(temp) == st.end()){
+        ans.push_back(temp);st.insert(temp);}
+        return;
+    }
+    for(int i = 0; i < candidates.size(); i++){
+        if(candidates[i] <= target){
+            temp.push_back(candidates[i]);
+            gen(candidates, target-candidates[i],temp,ans);
+            temp.pop_back();
+        }
+    }
+}
+vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    int n = candidates.size();
+    vector<vector<int>> ans;
+    vector<int> temp;
+    gen(candidates,target,temp,ans);
+    return ans;
+}
