@@ -1,0 +1,93 @@
+string summer(vector<string>& res, int maxii){
+        int n = res.size();
+        int carry = 0;
+        string ans = "";
+        for(int i = 0; i < maxii; i++){
+            long long ress = 0;
+            for(int j = 0; j < n; j++){
+                if(i >= res[j].size()){
+                    continue;
+                }
+                else{
+                    ress += (res[j][i]-'0');
+                }
+            }
+            ress += carry;
+            ans = char((ress%10)+'0')+ans;
+            carry = ress/10;
+        }
+        if(carry){
+            ans = to_string(carry) + ans;
+        }
+        return ans;
+    }
+    string multiply(string num1, string num2) {
+        string ans = "";
+        if(num1[0] == '0' || num2[0] == '0')return "0";
+        int l1 = num1.size(), l2 = num2.size();
+        vector<string> ress;
+        int maxii = 0;
+        if(l1 > l2){
+            for(int i = l2-1; i >= 0; i--){
+                string aa = "";
+                int carry = 0;
+                for(int k = l2-1-i; k > 0; k--){
+                    aa += '0';
+                }
+                for(int j = l1-1; j >= 0; j--){
+                    int res = (num1[j]-'0')*(num2[i]-'0');
+                    res += carry;
+                    aa += ((res%10)+'0');
+                    carry = res/10;
+                }
+                // if(carry != 0){
+                //     string crr = "";
+                //     while(carry){
+                //         crr += char(carry%10 + '0');
+                //         carry /= 10;
+                //     }
+                //     aa = crr+aa;
+                // }
+                if(carry){
+                    aa += to_string(carry);
+                }
+                int aal = aa.size();
+                maxii = max(maxii,aal);
+                ress.push_back(aa);
+            }
+        }
+        else{
+            for(int i = l1-1; i >= 0; i--){
+                string aa = "";
+                int carry = 0;
+                for(int k = l1-i-1; k > 0; k--){
+                    aa += '0';
+                }
+                for(int j = l2-1; j >= 0; j--){
+                    int res = (num1[i]-'0')*(num2[j]-'0');
+                    res += carry;
+                    aa += ((res%10)+'0');
+                    carry = res/10;
+                }
+                // if(carry != 0){
+                //     string crr = "";
+                //     while(carry){
+                //         crr += (carry%10 + '0');
+                //         carry /= 10;
+                //     }
+                //     aa = crr+aa;
+                // }
+                if(carry){
+                    aa += to_string(carry);
+                }
+                ress.push_back(aa);
+                int aal = aa.size();
+                maxii = max(maxii,aal);
+            }
+        }
+        // for(int i = 0; i < ress.size(); i++){
+        //     cout << ress[i] << "\n";
+        // }
+        ans = summer(ress,maxii);
+        return ans;
+    }
