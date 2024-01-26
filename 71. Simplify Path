@@ -1,0 +1,82 @@
+string simplifyPath(string s) {
+        int n = s.size();
+        int i = n-1;
+        string ans = "";
+    //     int len = 0;
+        while(s[i] == '/' && s.size() > 1) {s.pop_back();i--;}
+    //     i = 0;
+    //     n = s.size();
+    //     while(i < n){
+    //         if(s[i] == '/'){
+    //             if(len > 0 && ans[len-1] != '/'){
+    //                 ans += s[i];
+    //                 len++;
+    //             }
+    //             else if(len == 0){ans += s[i];len++;}
+    //             while(i < n && s[i] == '/'){
+    //                 i++;
+    //             }
+    //             // cout <<ans << " ";
+    //         }
+    //         else if(i > 0 && s[i] == '.' && s[i-1] == '/'){
+    //             string temp = "";
+    //             while(s[i] != '/' && i < n){
+    //                 temp += s[i];
+    //                 i++;
+    //             }
+    //             if(temp.size() == 2){
+    //                 if(temp == ".."){
+    //                     int count = 2;
+    //                     while(len > 0 && count > 0){
+    //                         if(ans[len-1] == '/'){count--;}
+    //                         ans.pop_back();len--;
+    //                     }
+    //                     if(len == 0){ans = "/";len = 1;}
+    //                 }
+    //                 else{
+    //                     ans += temp;
+    //                     len += temp.size();
+    //                 }
+    //             }
+    //             else if(temp.size() > 2){
+    //                 ans += temp;
+    //                 len += temp.size();
+    //             }
+    //         }
+    //         else{
+    //             ans.push_back(s[i]);
+    //             len++;
+    //             i++;
+    //         }
+    //     }
+    //     if(len == 0)ans = "/";
+    //     while(len > 1 && ans[len-1] == '/'){ans.pop_back();len--;}
+    //     return ans;
+        i = 0;
+        stack<string> st;
+        n = s.size();
+        while(i < n){
+            if(s[i] != '/'){
+                string temp = "";
+                while(i < n && s[i] != '/'){
+                    temp += s[i];
+                    i++;
+                }
+                    cout << temp << " ";
+                if(temp == ".."){
+                    if(!st.empty())
+                        st.pop();
+                }
+                else if(temp == "."){continue;}
+                else{
+                    st.push(temp);
+                }
+            }
+            else{i++;}
+        }
+        while(!st.empty()){
+            ans = "/"+st.top()+ans;
+            st.pop();
+        }
+        return ans.empty()?"/":ans;
+    }
