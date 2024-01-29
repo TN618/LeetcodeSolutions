@@ -1,0 +1,16 @@
+void gen(vector<vector<int> >& ans, int i, int n, vector<int>& nums, vector<int> temp){
+        if(i == n){
+            ans.push_back(temp);
+            return;
+        }
+        gen(ans,i+1,n,nums,temp);
+        temp.push_back(nums[i]);
+        gen(ans,i+1,n,nums,temp);
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int> > ans;
+        vector<int> temp;
+        int n = nums.size();
+        gen(ans,0,n,nums,temp);
+        return ans;
+    }
