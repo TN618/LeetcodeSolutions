@@ -1,0 +1,30 @@
+bool gen(vector<vector<char> >& board, int i, int j, string &word, int k){
+        if(k == word.size())return true;
+        if((i >= board.size() || i < 0) || (j >= board[0].size() || j < 0) || board[i][j] != word[k]){return false;}
+        k++;
+        char ch = board[i][j];
+        board[i][j] = '#';
+        bool up = gen(board,i-1,j,word,k);
+        bool down = gen(board,i+1,j,word,k);
+        bool left = gen(board,i,j-1,word,k);
+        bool right = gen(board,i,j+1,word,k);
+        bool ans = (up||right)||(down||left);
+        board[i][j] = ch;
+        return ans;
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        bool ans = 0;
+        int l = word.size();
+        int n = board.size();
+        int m = board[0].size();
+        int i = 0, j = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(board[i][j] == word[0]){
+                    bool ans = gen(board,i,j,word,0);
+                    if(ans){return true;}
+                }
+            }
+        }
+        return false;
+    }
