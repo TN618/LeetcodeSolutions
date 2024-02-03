@@ -1,0 +1,25 @@
+int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        if(n <= 2){return n;}
+        int i = 1;
+        int count = n;
+        int k = 0;
+        nums[k] = nums[0];k++;
+        while(i < n){
+            if(nums[i] == nums[k-1]){
+                nums[k] = nums[i];k++;
+                i++;
+                while(i < n && nums[i] == nums[k-1]){
+                    i++;
+                    count--;
+                }
+                if(i >= n)break;
+            }
+            else{
+                nums[k] = nums[i];
+                k++;
+                i++;
+            }
+        }
+        return count;
+    }
