@@ -1,0 +1,23 @@
+set<vector<int> > st;
+    void gen(vector<vector<int> >& ans, vector<int>& temp, int i, vector<int>& nums){
+        if(temp.size() == nums.size() || i >= nums.size()){
+            // sort(temp.begin(),temp.end());
+            if(st.find(temp) == st.end()){
+                ans.push_back(temp);
+                st.insert(temp);    
+            }
+            return;
+        }
+        gen(ans,temp,i+1,nums);
+        temp.push_back(nums[i]);
+        gen(ans,temp,i+1,nums);
+        temp.pop_back();
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        int n = nums.size();
+        sort(nums.begin(),nums.end());
+        vector<vector<int> > ans;
+        vector<int> temp;
+        gen(ans,temp,0,nums);
+        return ans;
+    }
