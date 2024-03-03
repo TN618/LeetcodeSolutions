@@ -1,0 +1,37 @@
+int match(int a, int b){
+        int count = 0;
+        for(int i = 0; i < 32; i++){
+            if(((1<<i)&a) != ((1<<i)&b))count++;
+        }
+        return count;
+    }
+    vector<int> grayCode(int n) {
+        int a = pow(2,n);
+        vector<int> ans(a);
+        ans[0] = 0;
+        // ans[a-1] = pow(2,n-1);
+        // int aa = pow(2,n-1);
+        // unordered_map<int,bool>mp;
+        // mp[aa] = 1;
+        // mp[0] = 1;
+        // for(int i = 1; i <= (a-1)/2; i++){
+        //     for(int j = 1; j < a; j++){
+        //         if(mp[j] == 0 && match(j,ans[i-1]) == 1){
+        //             mp[j] = 1;
+        //             ans[i] = j;
+        //             break;
+        //         }
+        //     }
+        //     for(int j = 1; j < a; j++){
+        //         if(mp[j] == 0 && match(j,ans[a-i]) == 1){
+        //             mp[j] = 1;
+        //             ans[a-i-1] = j;
+        //             break;
+        //         }
+        //     }
+        // }
+        for(int i = 1; i < a; i++){
+            ans[i] = i^(i>>1);
+        }
+        return ans;
+    }
