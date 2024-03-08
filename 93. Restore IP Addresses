@@ -1,0 +1,22 @@
+void gen(vector<string>& ans, int ind, string& s, string temp, int num){
+        if(num > 4)return;
+        if(num == 4 && ind == s.size()){
+            temp.pop_back();
+            ans.push_back(temp);
+            return;
+        }
+        for(int i = 1; i<=3 && i+ind <= s.size(); i++){
+            string curr_sec = s.substr(ind,i);
+            if((curr_sec.size() > 1 && curr_sec[0] == '0'))continue;
+            int nn = stoi(curr_sec);
+            if(nn <= 255)
+                gen(ans,ind+i,s,temp+curr_sec+".",num+1);
+        }
+    }
+    vector<string> restoreIpAddresses(string s) {
+        int n = s.size();
+        vector<string> ans;
+        if(n <= 3)return ans;
+        gen(ans,0,s,"",0);
+        return ans;
+    }
